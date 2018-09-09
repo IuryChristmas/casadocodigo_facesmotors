@@ -2,7 +2,11 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Teste</title>
@@ -10,13 +14,28 @@
     <h:body>
         <h:form>
             <h:panelGrid columns="2">
-	            Marca: <h:inputText value="#{automovelBean.automovel.marca}" />
-	            Modelo: <h:inputText value="#{automovelBean.automovel.modelo}" />
+	            Marca: 
+	            <h:selectOneMenu label="marca"
+	                value="#{automovelBean.marca}" required="true" converter="entityConverter">
+	                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+					<f:selectItems value="#{marcaBean.marcas}" var="marca" itemValue="#{marca}" itemLabel="#{marca.nome}" />
+					<f:ajax render="selectModelo" />	
+	            </h:selectOneMenu>
+	            Modelo: 
+	            <h:selectOneMenu id="selectModelo" label="modelo" value="#{automovelBean.automovel.modelo}"
+	                required="true" converter="entityConverter">
+	                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+	                <f:selectItems value="#{automovelBean.marca.modelos}" var="modelo" itemValue="#{modelo}" 
+	                    itemLabel="#{modelo.descricao}" />
+	            </h:selectOneMenu>
+	            
 	            Ano de Fabricação: <h:inputText value="#{automovelBean.automovel.anoFabricacao}" />
 	            Ano do Modelo: <h:inputText value="#{automovelBean.automovel.anoModelo}" />
-	            Observações: <h:inputText value="#{automovelBean.automovel.observacoes}" />
+	            Preço: <h:inputText value="#{automovelBean.automovel.preco}" />
+	            Kilometragem: <h:inputText value="#{automovelBean.automovel.kilometragem}" />
+	            Observações: <h:inputTextArea value="#{automovelBean.automovel.observacoes}" />
 	            
-	            <h:commandButton value="Salvar" action="#{automovelBean.salva(automovelBean.automovel)}"/>
+	            <h:commandButton value="Salvar" action="#{automovelBean.salvar(auto)}"/>
             </h:panelGrid>
         </h:form>
     </h:body>

@@ -1,9 +1,13 @@
+package br.com.casadocodigo.jsfjpa.persistence;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+import br.com.casadocodigo.jsfjpa.entities.Automovel;
+
 import javax.persistence.EntityTransaction;
 
 public class PersistidorDeAutomovel {

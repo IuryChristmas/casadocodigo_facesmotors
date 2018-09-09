@@ -1,14 +1,22 @@
+package br.com.casadocodigo.jsfjpa.controllers;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import br.com.casadocodigo.jsfjpa.entities.Automovel;
+import br.com.casadocodigo.jsfjpa.entities.Marca;
+import br.com.casadocodigo.jsfjpa.persistence.JPAUtil;
 
 @ManagedBean(name="automovelBean")
 public class AutomovelBean {
 	private Automovel automovel = new Automovel();
 	private List<Automovel> automoveis;
+	private Marca marca;
 
 	public Automovel getAutomovel() {
 		return automovel;
@@ -31,14 +39,16 @@ public class AutomovelBean {
 		return this.automoveis;
 	}
 
-	public void salva(Automovel automovel) {
+	public String salvar(Automovel auto) {
 		EntityManager em = JPAUtil.getEntityManager();
-		em.getTransaction().begin();
+		em.persist(auto);
 		
-		em.persist(automovel);
+		JPAUtil.evictCache(em, Automovel.LISTAR_DESTAQUES);
 		
-		em.getTransaction().commit();
-		em.close();
+		FacesMessage msg = new FacesMessage("Automovel salvo com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return "listar";
 	}
 	
 	public void excluir(Automovel automovel) {
