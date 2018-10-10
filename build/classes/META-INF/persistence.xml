@@ -31,12 +31,12 @@ value="org.hibernate.dialect.MySQL5Dialect"/>
 		    <property name="hibernate.format_sql"
 		        value="true" />
 		        
-		    <!-- <property
+		    <property
 					name="javax.persistence.validation.group.pre-persist"
-					value="facesmotors.validation.groups.ValidacaoMinima"/>
+					value="br.com.casadocodigo.jsfjpa.validation.groups.ValidacaoMinima"/>
 			<property
 					name="javax.persistence.validation.group.pre-update"
-					value="facesmotors.validation.groups.ValidacaoMinima"/> -->
+					value="br.com.casadocodigo.jsfjpa.validation.groups.ValidacaoMinima"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -10,6 +10,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.QueryHint;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
+
+import br.com.casadocodigo.jsfjpa.validation.MaxAnoAtualMais;
+import br.com.casadocodigo.jsfjpa.validation.groups.ValidacaoMinima;
 
 @NamedQueries({
 	@NamedQuery(name=Automovel.LISTAR_DESTAQUES, query="select a from Automovel a", hints={
@@ -27,9 +32,14 @@ public class Automovel {
 	
 	@ManyToOne
 	private Modelo modelo;
+	@Min(1900)
+	@MaxAnoAtualMais(message="O máximo do ano de fabricação é {0}")
 	private Integer anoFabricacao;
+	@Min(1900)
+	@MaxAnoAtualMais(message="O máximo do ano do modelo é {0}")
 	private Integer anoModelo;
 	private String observacoes;
+	@NotNull(groups= {ValidacaoMinima.class, Default.class})
 	private Float preco;
 	private Float kilometragem;
 	
